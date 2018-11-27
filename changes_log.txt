@@ -1,0 +1,11 @@
+Falguni D.
+---------
+1.myserver.php
+2.signup.php
+
+Walid
+=========
+1.login.php //4
+2.myserver.php //16,19
+3.balance_check.php //addition
+4.withdraw //addition

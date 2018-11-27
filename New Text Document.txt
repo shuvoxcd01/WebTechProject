@@ -1,0 +1,81 @@
+<?php 
+	session_start();
+	if(!isset($_SESSION["uname"])){
+		exit("Invalid Session");
+	}
+?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Withdraw</title>
+	</head>
+	
+	<body style="background: linear-gradient(to bottom, #333300 50%, #999966 100%);color:white;text-align:center;">
+		
+		
+		<div style=" padding:70px 0px; ">
+				
+				<?php
+		    /*echo "<pre>";print_r($GLOBALS);echo "</pre>";
+			 foreach($_GET as $k=>$v) //gets user's name
+				 {
+					 $name=$k;
+				 }
+			echo $name;	 */
+			$balance_file = fopen("balance_data.txt", "r") or die("Problem Opening User File");
+			
+			$found = false;
+			
+			while($data = fgets($balance_file)){
+				$data = trim($data);
+				$data = explode(" ", $data);
+				$_uname = $data[0];
+				if($_uname==$_SESSION["uname"])
+				{
+					$_balance = $data[1];
+					$_SESSION["balance"]=$_balance;
+					
+					//header("location:balance.php?$_balance");
+					//break;
+				}
+				
+				
+					
+				
+			}
+			
+			
+			//echo "balance" .$_balance. "TK" ;
+
+        ?>
+				
+				
+				<?php
+				 echo "<h1><i>Welcome, " .$_SESSION["uname"]. "</i></h1>";
+				?>
+				<hr/>
+				<b>Your Balance is:</b>
+				<?php
+				    echo "<b>".$_SESSION["balance"]."TK"."</b>";
+				?>
+                <form action="check_withdraw_amount.php" method="post" >
+					<b>Enter The Amount:</b> <br/>
+					<input type="text" name="withdraw_amount" /><br/>
+					<input type="submit" value="Withdraw" /><br/>
+				
+				</form>
+				
+				<form action="login_successful.php" method="post" style="float:center">
+					<input style="width:200px;font-size:15px"    type="submit" value="Back"/><br/>
+				</form>
+				
+				<form action="logout.php" method="post" >
+					
+					<input style="width:150px; font-size:15px"type="submit" value="Logout"/>
+				
+				</form>
+		</div>
+		
+	</body>
+</html>
